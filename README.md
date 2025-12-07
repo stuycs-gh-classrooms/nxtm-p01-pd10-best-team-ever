@@ -77,12 +77,22 @@ What classes will you be creating for this project? Include the instance variabl
 
 CLASS Spaceship
 - Instance variables:
-  - LIST INSTANCE VARS HERE
+  - PVector center
+  - int xspeed
+  - int yspeed
+  - int shipSize
 - METHODS
-  - LIST METHODS HERE
+  - boolean collisionCheck
+  - void display
+  - void move
 
 CLASS Projectile
 - Instance variables:
-  - LIST INSTANCE VARS HERE
+  - PVector center
+  - int xspeed
+  - int yspeed
+  - int projectSize
 - METHODS
-  - LIST METHODS HERE
+  - boolean collisionCheck
+  - void display
+  - void move
