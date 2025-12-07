@@ -27,8 +27,8 @@ The first phase will be to work on this document.
 ### Necessary Features
 What are the core features that your program should have? These should be things that __must__ be implemented in order to make the program useable/playable, not extra features that could be added to make the program more interesting/fun.
 
-1. A class for projectiles
-2. A class for the enemies
+1. Classes:
+....* A class for the enemies
 3. keyPressed() function that will allow players to pause and play the game
 4. A function to check collisions between projectiles and enemies, and projectiles and spaceship
 5. A function that will decrement the health of the player if collision of enemy projectile detected
