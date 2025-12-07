@@ -92,6 +92,7 @@ CLASS Projectile
   - int xspeed
   - int yspeed
   - int projectSize
+  - int replicate
 - METHODS
   - boolean collisionCheck
   - void display
