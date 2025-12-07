@@ -47,6 +47,7 @@ What are some features that are not essential to the program, but you would like
 
 1. A background that matches the spaceship theme
 2. A graphic for when the spaceship explodes (runs out of lives)
+3. Obstacles (not enemy ships) for the spaceship to avoid
 
 ### Array Usage
 How will you be using arrays in this project?
@@ -62,23 +63,25 @@ How will you be using arrays in this project?
 How will your program be controlled? List all keyboard commands and mouse interactions.
 
 Keyboard Commands:
-- LIST OF COMMANDS HERE
+- space button shoots projectiles
+- UP/DOWN/LEFT/RIGHT keys control spaceship
+- 'p' key starts/stops the game
 
 Mouse Control:
-- Mouse movement:
-- Mouse pressed:
+- Mouse movement: program tracks mouse movement
+- Mouse pressed: if mouse coordinates are within the coordinates of the start button and mouse pressed, start game 
 
 
 ### Classes
 What classes will you be creating for this project? Include the instance variables and methods that you believe you will need. You will be required to create at least 2 different classes. If you are going to use classes similar to those we've made for previous assignments, you will have to add new features to them.
 
-CLASS NAME0
+CLASS Spaceship
 - Instance variables:
   - LIST INSTANCE VARS HERE
 - METHODS
   - LIST METHODS HERE
 
-CLASS NAME1
+CLASS Projectile
 - Instance variables:
   - LIST INSTANCE VARS HERE
 - METHODS
