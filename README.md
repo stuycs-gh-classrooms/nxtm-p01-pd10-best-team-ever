@@ -28,33 +28,34 @@ The first phase will be to work on this document.
 What are the core features that your program should have? These should be things that __must__ be implemented in order to make the program useable/playable, not extra features that could be added to make the program more interesting/fun.
 
 1. Classes:
-* Spaceship class (used for player and enemies)
-* Projectile class
+   * Spaceship class (used for player and enemies)
+   * Projectile class
 2. Functions: 
-* keyPressed() function that will allow players to pause and play the game
-* A function to check collisions between projectiles and enemies, and projectiles and spaceship
-* A function that will decrement the health of the player if collision of enemy projectile detected
-* A function that will end and reset the game if the player's health goes to zero
-* A function that will decrement the health of the enemies if collision of player projectile detected
-* A function that will remove the enemy/player if its health is 0
+   * keyPressed() function that will allow players to pause and play the game
+   * A function to check collisions between projectiles and enemies, and projectiles and spaceship
+   * A function that will decrement the health of the player if collision of enemy projectile detected
+   * A function that will end and reset the game if the player's health goes to zero
+   * A function that will decrement the health of the enemies if collision of player projectile detected
+   * A function that will remove the enemy/player if its health is 0
 3. Variables: 
-* A variable that tracks the health of the player and the enemies
-* A variable to control the speed of the enemies
-* Variables to control the movement of the enemies
+   * "Life" variable that tracks the health of the player and the enemies
+   * "ShipSpeed" variable to control the speed of the enemies
+   * Variables to control the movement of the enemies
 
 ### Extra Features
 What are some features that are not essential to the program, but you would like to see (provided you have time after completing the necessary features. Theses can be customizations that are not part of the core requirements.
 
-YOUR ANSWERS HERE
+1. A background that matches the spaceship theme
+2. A graphic for when the spaceship explodes (runs out of lives)
 
 ### Array Usage
 How will you be using arrays in this project?
 
 1D Array:
-- YOUR ANSER HERE
+- Number of spaceship lives
 
 2D Array:
-- YOUR ANSWER HERE
+- Spaceship x, y coordinates
 
 
 ### Controls
