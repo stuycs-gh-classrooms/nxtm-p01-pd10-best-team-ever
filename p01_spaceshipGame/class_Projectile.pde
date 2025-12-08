@@ -1,0 +1,33 @@
+class Projectile {
+  //VARIABLES
+  PVector center;
+  int yspeed;
+  int bsize;
+  color c;
+
+  //CONSTRUCTOR
+  Projectile(PVector p, int s) {
+    bsize = s;
+    center = new PVector(p.x, p.y);
+  }
+  Projectile() {
+    this(center, bsize);
+  }
+  //METHODS
+  
+  boolean shipCollision(Spaceship x){
+    return (this.center.dist(x.center) <= (this.bsize/2 + x.bsize/2));
+  }
+
+
+void display(){
+  fill(0);
+  circle(center.x, center.y, bsize); }
+  
+  void move(){
+    center.y += 3;
+  }
+  
+  
+  
+}
