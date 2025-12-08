@@ -1,30 +1,49 @@
-class Spaceship {
+class class_Enemy {
 
   //VARIABLES
   PVector center;
-  int xspeed;
-  int yspeed;
+  int xspeed = 1;
+  int yspeed = 1;
   int bsize;
   color c;
 
   //CONSTRUCTOR
-  Spaceship(PVector p, int s) {
+  class_Enemy(PVector p, int s) {
     bsize = s;
     center = new PVector(p.x, p.y);
   }
 
   //METHODS
-  boolean collideYesNo(Spaceship other) { // Did spaceships collide?
+  boolean collideYesNo(class_Enemy other) { // Did class_Enemys collide?
     return (this.center.dist(other.center) <= (this.bsize/2 + other.bsize/2)); // returns true or false
   }
 
-  void setColor(color x) {
-    c = newC;
-  }
+
 
   void display() {
-    fill(c);
+    fill(255);
+    circle(center.x,center.y,bsize);
+  }
     
+    
+   void move() {
+      if (center.x > width - bsize/2 || center.x < bsize/2) {
+        xspeed *= -1;
+        center.x += xspeed;
+        println(center.x);
+      }
+      if (center.y > height - bsize/2 || center.y < bsize/2) {
+        yspeed *= -1;
+        center.y += yspeed;
+        println(center.y);
+      }
+      
+   }
+
+
+
+
+}
     
     
     

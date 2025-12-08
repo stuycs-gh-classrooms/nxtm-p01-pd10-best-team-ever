@@ -1,3 +1,4 @@
+
 class Projectile {
   //VARIABLES
   PVector center;
@@ -15,7 +16,7 @@ class Projectile {
   }
   //METHODS
   
-  boolean shipCollision(Spaceship x){
+  boolean shipCollision(class_Enemy x){
     return (this.center.dist(x.center) <= (this.bsize/2 + x.bsize/2));
   }
 
