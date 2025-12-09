@@ -13,7 +13,7 @@ void setup() {
   shipCenter = new PVector (width/2, (9 * height/10)); // creates user-operated spaceship
   spaceship = new class_Enemy(shipCenter, bsize);
 
-  enemies = new class_Enemy[5][5];
+  enemies = new class_Enemy[5][25];
   projectiles = new Projectile[1000];
   frameRate(30);
   makeEnemies(enemies);
@@ -34,9 +34,20 @@ void draw() {
   for (int i = 0; i < enemies.length; i++) { //display enemies (maybe this should go in setup? idk)
     for (int j = 0; j < enemies[i].length; j++) {
       enemies[i][j].display();
-      if (frameCount % 10 == 0) { //move enemies
-        enemies[i][j].move();
+    if (frameCount % 10 == 0) { //move enemies
+      if (enemies[i][j].center.x >= width - bsize/2 || enemies[i][j].center.x < bsize/2) {
+        enemies[i][j].xspeed *= -1;
+        println(center.x);
       }
+      if (enemies[i][j].center.y >= height - bsize/2 || enemies[i][j].center.y < bsize/2) {
+        enemies[i][j].yspeed *= -1;
+
+        //println(center.y);
+      }
+    }
+      enemies[i][j].center.x += enemies[i][j].xspeed;
+      enemies[i][j].center.y += enemies[i][j].yspeed;
+      enemies[i][j].center = new PVector(enemies[i][j].center.x, enemies[i][j].center.y);
     }
   }
 }

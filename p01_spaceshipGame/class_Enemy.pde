@@ -2,8 +2,8 @@ class class_Enemy {
 
   //VARIABLES
   PVector center;
-  int xspeed = 1;
-  int yspeed = 1;
+  int xspeed;
+  int yspeed;
   int bsize;
   color c;
 
@@ -22,29 +22,21 @@ class class_Enemy {
 
   void display() {
     fill(255);
-    circle(center.x,center.y,bsize);
+    circle(center.x, center.y, bsize);
   }
-    
-    
-   void move() {
-      if (center.x > width - bsize/2 || center.x < bsize/2) {
-        xspeed *= -1;
-        center.x += xspeed;
-        println(center.x);
-      }
-      if (center.y > height - bsize/2 || center.y < bsize/2) {
-        yspeed *= -1;
-        center.y += yspeed;
-        println(center.y);
-      }
-      
-   }
 
 
+  void move() {
+    if (center.x >= width - bsize/2 || center.x < bsize/2) {
+      xspeed *= -1;
+      println(center.x);
+    }
+    if (center.y >= height - bsize/2 || center.y < bsize/2) {
+      yspeed *= -1;
 
-
+      //println(center.y);
+    }
+    center.y += yspeed;
+    center.x += xspeed;
+  }
 }
-    
-    
-    
-    
