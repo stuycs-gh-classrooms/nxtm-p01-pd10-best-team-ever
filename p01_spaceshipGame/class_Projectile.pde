@@ -11,9 +11,7 @@ class Projectile {
     bsize = s;
     center = new PVector(p.x, p.y);
   }
-  Projectile() {
-    this(center, bsize);
-  }
+
   //METHODS
   
   boolean shipCollision(class_Enemy x){
@@ -26,7 +24,7 @@ void display(){
   circle(center.x, center.y, bsize); }
   
   void move(){
-    center.y += 3;
+    center.y -= 3;
   }
   
   
