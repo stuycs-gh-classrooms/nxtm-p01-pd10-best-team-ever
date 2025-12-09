@@ -13,20 +13,20 @@ class Projectile {
   }
 
   //METHODS
-  
-  boolean shipCollision(class_Enemy x){
+  boolean shipCollision(class_Enemy x) {
     return (this.center.dist(x.center) <= (this.bsize/2 + x.bsize/2));
   }
 
+  void display() {
+    fill(0);
+    circle(center.x, center.y, bsize);
+  }
 
-void display(){
-  fill(0);
-  circle(center.x, center.y, bsize); }
-  
-  void move(){
+  void moveUp() {
     center.y -= 3;
   }
-  
-  
-  
+
+  void moveDown() {
+    center.y += 3;
+  }
 }

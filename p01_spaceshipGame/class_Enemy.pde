@@ -6,6 +6,7 @@ class class_Enemy {
   int yspeed;
   int bsize;
   color c;
+//  boolean exist;
 
   //CONSTRUCTOR
   class_Enemy(PVector p, int s) {
@@ -21,9 +22,9 @@ class class_Enemy {
 
 
   void display() {
-    fill(255);
-    circle(center.x, center.y, bsize);
-  }
+          fill(255);
+          circle(center.x, center.y, bsize);
+        }
 
 
   void move() {

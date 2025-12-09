@@ -1,10 +1,13 @@
 class_Enemy[][] enemies;
-Projectile[] projectiles;
+class_Enemy spaceship;
+Projectile[] projectiles; //stores projectiles so a new one can be made each time
+Projectile[] enemyProjectiles; //stores projectiles of enemies
 int bsize = 15;
 PVector center;
-PVector shipCenter;
-class_Enemy spaceship;
-int pCount = 0;
+PVector pCenter; //projectile center
+PVector shipCenter; // center of user-operated spaceship
+int pCount = 0; // number of projectiles fired
+int pEnemyCount = 0;
 
 
 void setup() {
@@ -12,42 +15,68 @@ void setup() {
 
   shipCenter = new PVector (width/2, (9 * height/10)); // creates user-operated spaceship
   spaceship = new class_Enemy(shipCenter, bsize);
+  projectiles = new Projectile[1000];
+  enemyProjectiles = new Projectile[10000];
 
   enemies = new class_Enemy[5][25];
-  projectiles = new Projectile[1000];
   frameRate(30);
   makeEnemies(enemies);
   makeGrid(enemies);
 }
 
 void draw() {
+  int currentShooters = 0;
   background(240);
+  processCollisions(projectiles, enemies);
   spaceship.display();
-
-  for (int i = 0; i < projectiles.length; i++) {
+  //MAKE ENEMY PROJECTILES MOVE
+  for (int i = 0; i < enemyProjectiles.length; i++) {
+    if (enemyProjectiles[i] != null) {
+      println("shoot projectile");
+      enemyProjectiles[i].moveDown();
+      enemyProjectiles[i].display();
+    }
+  }
+  //MAKE SPACSHIP PROJECTILES MOVE
+  for (int i = 0; i < projectiles.length; i++) { //displays,moves projectiles
     if (projectiles[i] != null) {
-      projectiles[i].move();
+      projectiles[i].moveUp();
       projectiles[i].display();
     }
   }
-
+  //DISPLAY,MOVE ENEMIES
   for (int i = 0; i < enemies.length; i++) { //display enemies (maybe this should go in setup? idk)
     for (int j = 0; j < enemies[i].length; j++) {
-      enemies[i][j].display();
-    if (frameCount % 10 == 0) { //move enemies
-      if (enemies[i][j].center.x >= width - bsize/2 || enemies[i][j].center.x < bsize/2) {
-        enemies[i][j].xspeed *= -1;
-        println(center.x);
-      }
-      if (enemies[i][j].center.y >= height - bsize/2 || enemies[i][j].center.y < bsize/2) {
-        enemies[i][j].yspeed *= -1;
+      if (enemies[i][j] != null) {
+        enemies[i][j].display();
+//ENEMY PROJECTILES
+        if (frameCount % 60 == 0) { // only 10 random enemies shoot at a time
+        
+          if (currentShooters < 5) {
+            if (random(1) < 0.33) {
+              currentShooters += 1;
+              pCenter = (enemies[i][j].center.copy());
+              makeEnemyProjectile(enemyProjectiles);
+            }
+          }
+        }
 
-        //println(center.y);
+        if (frameCount % 10 == 0) { //move enemies
+
+          if (enemies[i][j].center.x >= width - bsize/2 || enemies[i][j].center.x < bsize/2) {
+            enemies[i][j].xspeed *= -1;
+            //          println(center.x);
+          }
+          if (enemies[i][j].center.y >= height - bsize/2 || enemies[i][j].center.y < bsize/2) {
+            enemies[i][j].yspeed *= -1;
+
+            //println(center.y);
+          }
+        }
+        enemies[i][j].center.x += enemies[i][j].xspeed;
+        enemies[i][j].center.y += enemies[i][j].yspeed;
+        enemies[i][j].center = new PVector(enemies[i][j].center.x, enemies[i][j].center.y);
       }
-    }
-      enemies[i][j].center.x += enemies[i][j].xspeed;
-      enemies[i][j].center.y += enemies[i][j].yspeed;
-      enemies[i][j].center = new PVector(enemies[i][j].center.x, enemies[i][j].center.y);
     }
   }
 }
@@ -75,15 +104,40 @@ void makeGrid(class_Enemy[][] e) {
     }
   }
 }
-void makeProjectile() {
-  projectiles[pCount] = new Projectile (shipCenter, bsize/2);
+
+void makeProjectile(Projectile[] p) { // makes projectiles
+  p[pCount] = new Projectile (shipCenter, bsize/2);
   pCount += 1;
 }
+void makeEnemyProjectile(Projectile[] p) {
+  p[pEnemyCount] = new Projectile (pCenter, bsize/2);
+  pEnemyCount += 1;
+}
 
-void keyPressed() {
+void processCollisions(Projectile[] p, class_Enemy[][] e) { //process collisions
+  for (int i = 0; i < e.length; i++) { //loop through enemies
+    for (int u = 0; u < e[i].length; u++) { //loop through enemies
+      for (int o = 0; o < pCount; o++) { //loop through projectiles
+        if (e[i][u] != null) {
+          if (p[o] != null) {
+            float d = dist(p[o].center.x, p[o].center.y, e[i][u].center.x, e[i][u].center.y);
+            //                  println(d); //return distance between projectile and enemy
+            if (d < bsize) { //if distance too small,
+              //              println("COLLIDE"); //objects "collide"
+              e[i][u] = null; // enemy disappears
+              p[o] = null; //projectile disappears
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void keyPressed() { //control spaceship
   if (key == ' ') {
-    makeProjectile();
-    println("made projectile");
+    makeProjectile(projectiles);
+    //    println("made projectile");
   }
   if (key == CODED) {
     if (keyCode == LEFT) {
