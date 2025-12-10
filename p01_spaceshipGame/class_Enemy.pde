@@ -6,7 +6,7 @@ class class_Enemy {
   int yspeed;
   int bsize;
   color c;
-//  boolean exist;
+  //  boolean exist;
 
   //CONSTRUCTOR
   class_Enemy(PVector p, int s) {
@@ -22,22 +22,15 @@ class class_Enemy {
 
 
   void display() {
-          fill(255);
-          circle(center.x, center.y, bsize);
-        }
-
-
+    fill(255);
+    circle(center.x, center.y, bsize);
+  }
+  
   void move() {
-    if (center.x >= width - bsize/2 || center.x < bsize/2) {
+    if (center.x > width - bsize/2 || center.x < bsize/2) {
       xspeed *= -1;
-      println(center.x);
     }
-    if (center.y >= height - bsize/2 || center.y < bsize/2) {
-      yspeed *= -1;
-
-      //println(center.y);
-    }
-    center.y += yspeed;
     center.x += xspeed;
+    center.y += yspeed;
   }
 }
