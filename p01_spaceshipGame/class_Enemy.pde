@@ -2,8 +2,8 @@ class class_Enemy {
 
   //VARIABLES
   PVector center;
-  int xspeed;
-  int yspeed;
+  int xspeed = 1;
+  int yspeed = 1;
   int bsize;
   color c;
   //  boolean exist;
@@ -25,11 +25,12 @@ class class_Enemy {
     fill(255);
     circle(center.x, center.y, bsize);
   }
-  
+
   void move() {
     if (center.x > width - bsize/2 || center.x < bsize/2) {
       xspeed *= -1;
     }
+
     center.x += xspeed;
     center.y += yspeed;
   }
