@@ -12,6 +12,7 @@ int currentShooters = 0;
 int xspeed = 1;
 int yspeed = 1;
 boolean playing;
+boolean win;
 
 void setup() {
   size(500, 500);
@@ -165,6 +166,7 @@ void processShipCollisions(Projectile[] p, class_Enemy e) { //process collisions
         e.exist = false;
         e = null; // enemy disappears
         p[o] = null; //projectile disappears
+        win = false;
       }
     }
   }

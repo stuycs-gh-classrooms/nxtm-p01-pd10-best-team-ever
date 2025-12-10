@@ -6,12 +6,8 @@ class class_Enemy {
   int yspeed = 1;
   int bsize;
   color c;
-<<<<<<< HEAD
   boolean exist;
-=======
-    boolean exist;
->>>>>>> 40a8150f22ac234d251b4cd7675d39eba719b91c
-
+  
   //CONSTRUCTOR
   class_Enemy(PVector p, int s) {
     bsize = s;
