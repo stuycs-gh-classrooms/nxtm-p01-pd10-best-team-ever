@@ -7,7 +7,7 @@ PVector center;
 PVector pCenter; //projectile center
 PVector shipCenter; // center of user-operated spaceship
 int pCount = 0; // number of projectiles fired
-int pEnemyCount = 0;
+int pEnemyCount = 0; //numer of enemy projectiles fired
 int currentShooters = 0;
 
 void setup() {
@@ -27,6 +27,7 @@ void setup() {
 void draw() {
   background(240);
   processCollisions(projectiles, enemies);
+  processShipCollisions(enemyProjectiles, spaceship);
   spaceship.display();
   //MAKE ENEMY PROJECTILES MOVE
   for (int i = 0; i < enemyProjectiles.length; i++) {
@@ -103,11 +104,11 @@ void draw() {
     }
   }
 
-  void makeProjectile(Projectile[] p) { // makes projectiles
+  void makeProjectile(Projectile[] p) { // makes spaceship projectiles
     p[pCount] = new Projectile (shipCenter, bsize/2);
     pCount += 1;
   }
-  void makeEnemyProjectile(Projectile[] p) {
+  void makeEnemyProjectile(Projectile[] p) { //makes enemy projectiles
     p[pEnemyCount] = new Projectile (pCenter, bsize/2);
     pEnemyCount += 1;
   }
@@ -148,3 +149,18 @@ void draw() {
       }
     }
   }
+  
+    void processShipCollisions(Projectile[] p, class_Enemy e) { //process collisions
+        for (int o = 0; o < pCount; o++) { //loop through projectiles
+            if (p[o] != null) { // if projectile exists
+              float d = dist(p[o].center.x, p[o].center.y, e.center.x, e.center.y);
+//                                println(d); //return distance between projectile and enemy
+              if (d < bsize) { //if distance too small,
+                             println("COLLIDE"); //objects "collide"
+                e = null; // enemy disappears
+                p[o] = null; //projectile disappears
+              }
+            }
+          }
+        }
+      
