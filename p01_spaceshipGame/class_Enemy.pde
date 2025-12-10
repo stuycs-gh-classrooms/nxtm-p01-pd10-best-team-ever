@@ -6,7 +6,7 @@ class class_Enemy {
   int yspeed = 1;
   int bsize;
   color c;
-  //  boolean exist;
+  boolean exist;
 
   //CONSTRUCTOR
   class_Enemy(PVector p, int s) {
@@ -29,6 +29,9 @@ class class_Enemy {
   void move() {
     if (center.x > width - bsize/2 || center.x < bsize/2) {
       xspeed *= -1;
+    }
+    if (center.y > height - bsize/2 || center.y < bsize/2) {
+      yspeed *= -1;
     }
 
     center.x += xspeed;
