@@ -2,15 +2,11 @@ class class_Enemy {
 
   //VARIABLES
   PVector center;
-  int xspeed = 1;
-  int yspeed = 1;
+  int xspeed;
+  int yspeed;
   int bsize;
   color c;
-<<<<<<< HEAD
   boolean exist;
-=======
-    boolean exist;
->>>>>>> 40a8150f22ac234d251b4cd7675d39eba719b91c
 
   //CONSTRUCTOR
   class_Enemy(PVector p, int s) {
@@ -34,10 +30,6 @@ class class_Enemy {
     if (center.x > width - bsize/2 || center.x < bsize/2) {
       xspeed *= -1;
     }
-    if (center.y > height - bsize/2 || center.y < bsize/2) {
-      yspeed *= -1;
-    }
-
     center.x += xspeed;
     center.y += yspeed;
   }
