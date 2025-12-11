@@ -3,7 +3,7 @@ class class_Enemy {
   //VARIABLES
   PVector center;
   int xspeed = 1;
-  int yspeed = 1;
+  int yspeed = 0;
   int bsize;
   color c;
   boolean exist;
@@ -29,12 +29,11 @@ class class_Enemy {
   void move() {
     if (center.x > width - bsize/2 || center.x < bsize/2) {
       xspeed *= -1;
+      yspeed += 15.5;
+      center.y += yspeed;
     }
-    if (center.y > height - bsize/2 || center.y < bsize/2) {
-      yspeed *= -1;
-    }
+    
 
     center.x += xspeed;
-    center.y += yspeed;
   }
 }
