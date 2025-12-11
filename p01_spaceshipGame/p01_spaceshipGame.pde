@@ -1,4 +1,5 @@
 class_Enemy[][] enemies;
+class_Enemy[][] enemies2;
 class_Enemy spaceship;
 Projectile[] projectiles; //stores projectiles so a new one can be made each time
 Projectile[] enemyProjectiles; //stores projectiles of enemies
@@ -14,6 +15,7 @@ int yspeed = 1;
 boolean playing;
 boolean win;
 int enemyDifficulty = 5;
+int numLives = 3;
 
 void setup() {
   size(500, 500);
@@ -26,9 +28,13 @@ void setup() {
   spaceship.exist = true;
 
   enemies = new class_Enemy[5][25];
+  enemies2 = new class_Enemy[4][16];
   frameRate(30);
   makeEnemies(enemies);
   makeGrid(enemies);
+  if (win == true) {
+    won();
+  }
 }
 
 void draw() {
@@ -40,7 +46,7 @@ void draw() {
   }
 
   processCollisions(projectiles, enemies);
-  processShipCollisions(enemyProjectiles, spaceship);
+  processShipCollisions(enemyProjectiles, projectiles, spaceship);
 
   if (spaceship.exist != false) {
     spaceship.display();
@@ -81,10 +87,7 @@ void draw() {
   }
 }
 
-void reset() {
-  enemyDifficulty += 5;
-  playing = true;
-}
+
 
 void makeEnemies(class_Enemy[][] e) {
   int x = width/20;
@@ -133,11 +136,14 @@ void processCollisions(Projectile[] p, class_Enemy[][] e) { //process collisions
               p[o] = null; //projectile disappears
             }
           }
+        } 
+        if (e[i][u] == null) {
+          win = true;
+        }
         }
       }
     }
   }
-}
 
 void keyPressed() { //control spaceship
   if (key == ENTER) {
@@ -174,9 +180,6 @@ void keyPressed() { //control spaceship
   }
 
 
-  if (spaceship == null) {
-    playing = false;
-  }
   if (playing == true) {
     if (key == ' ') {
       makeProjectile(projectiles);
@@ -195,7 +198,7 @@ void keyPressed() { //control spaceship
   }
 }
 
-void processShipCollisions(Projectile[] p, class_Enemy e) { //process collisions
+void processShipCollisions(Projectile[] p, Projectile[] s, class_Enemy e) { //process collisions
   for (int o = 0; o < pEnemyCount; o++) { //loop through projectiles
     if (p[o] != null) { // if projectile exists
       if (e != null) {
@@ -203,12 +206,24 @@ void processShipCollisions(Projectile[] p, class_Enemy e) { //process collisions
         //println(d); //return distance between projectile and enemy
         if (d < bsize) { //if distance too small,
           //        println("COLLIDE"); //objects "collide"
-          e.exist = false;
-          e = null; // enemy disappears
+          //e.exist = false;
+          //e = null; // enemy disappears
           p[o] = null; //projectile disappears
-          playing = false;
+          s[o] = null;
+          numLives--;
+          if (numLives == 0) {
+            win = false;
+            playing = false;
           }
         }
       }
     }
+  }
+}
+
+void won() {
+  if (win == true) {
+    makeEnemies(enemies2);
+    makeGrid(enemies2);
+  }
 }
