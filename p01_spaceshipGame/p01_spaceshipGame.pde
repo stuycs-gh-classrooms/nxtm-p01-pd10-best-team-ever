@@ -13,9 +13,11 @@ int xspeed = 1;
 int yspeed = 1;
 boolean playing;
 boolean win;
+int enemyDifficulty = 5;
 
 void setup() {
   size(500, 500);
+  textAlign(CENTER, CENTER);
 
   shipCenter = new PVector (width/2, (9 * height/10)); // creates user-operated spaceship
   spaceship = new class_Enemy(shipCenter, bsize);
@@ -31,11 +33,17 @@ void setup() {
 
 void draw() {
   background(240);
+  if (playing != true) {
+    textSize(20);
+    fill(0);
+    text("CLICK ENTER TO START GAME", width/2, height/2);
+  }
+
   processCollisions(projectiles, enemies);
   processShipCollisions(enemyProjectiles, spaceship);
-  
-  if (spaceship.exist != false){
-  spaceship.display();
+
+  if (spaceship.exist != false) {
+    spaceship.display();
   }
   //MAKE ENEMY PROJECTILES MOVE
   if (playing == true) {
@@ -62,7 +70,7 @@ void draw() {
 
           //ENEMY PROJECTILES
           if (frameCount % 80 == 0) { // only 10 random enemies shoot at a time
-            if (random(1) < 0.05) {
+            if (random(1) < 0.01 * enemyDifficulty) {
               pCenter = (enemies[i][j].center.copy());
               makeEnemyProjectile(enemyProjectiles);
             }
@@ -71,6 +79,11 @@ void draw() {
       }
     }
   }
+}
+
+void reset() {
+  enemyDifficulty += 5;
+  playing = true;
 }
 
 void makeEnemies(class_Enemy[][] e) {
@@ -128,12 +141,42 @@ void processCollisions(Projectile[] p, class_Enemy[][] e) { //process collisions
 
 void keyPressed() { //control spaceship
   if (key == ENTER) {
+    //    textSize(30);
+    //    fill(0);
+    //    int i = 0;
+    //    while (i < 5) {
+    //      if (frameCount % 10 == 0) {
+    //       if (i == 0) {
+    //        text("3", width/2, height/2);
+    //                 i++;
+    //        }
+    //        if (i == 1) {
+    //          text("2", width/2, height/2);
+    //                    i++;
+    //        }
+    //        if (i == 2) {
+    //          text("1", width/2, height/2);
+    //                    i++;
+    //        }
+    //        if (i == 3) {
+    //          text("START", width/2, height/2);
+    //                    i++;
+    //        }
+    //        if (i == 4) {
     playing = true;
+
+    //        }
+    //      }
+    //    }
   }
   if (key == TAB) {
     playing = false;
   }
-  
+
+
+  if (spaceship == null) {
+    playing = false;
+  }
   if (playing == true) {
     if (key == ' ') {
       makeProjectile(projectiles);
@@ -155,17 +198,17 @@ void keyPressed() { //control spaceship
 void processShipCollisions(Projectile[] p, class_Enemy e) { //process collisions
   for (int o = 0; o < pEnemyCount; o++) { //loop through projectiles
     if (p[o] != null) { // if projectile exists
-    if(e != null) {
-      float d = dist(p[o].center.x, p[o].center.y, e.center.x, e.center.y);
-      //println(d); //return distance between projectile and enemy
-      if (d < bsize) { //if distance too small,
-//        println("COLLIDE"); //objects "collide"
-        e.exist = false;
-        e = null; // enemy disappears
-        p[o] = null; //projectile disappears
-        playing = false;
+      if (e != null) {
+        float d = dist(p[o].center.x, p[o].center.y, e.center.x, e.center.y);
+        //println(d); //return distance between projectile and enemy
+        if (d < bsize) { //if distance too small,
+          //        println("COLLIDE"); //objects "collide"
+          e.exist = false;
+          e = null; // enemy disappears
+          p[o] = null; //projectile disappears
+          playing = false;
+          }
+        }
       }
     }
-  }
-}
 }
