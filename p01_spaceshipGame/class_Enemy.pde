@@ -32,7 +32,9 @@ class class_Enemy {
       yspeed += 15.5;
       center.y += yspeed;
     }
-    
+    if (center.y > height - bsize/2 || center.y < bsize/2) {
+      center.y -= yspeed;
+    }
 
     center.x += xspeed;
   }
