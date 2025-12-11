@@ -134,9 +134,6 @@ void keyPressed() { //control spaceship
     playing = false;
   }
   
-  if (spaceship == null) {
-    playing = false;
-  }
   if (playing == true) {
     if (key == ' ') {
       makeProjectile(projectiles);
@@ -166,7 +163,7 @@ void processShipCollisions(Projectile[] p, class_Enemy e) { //process collisions
         e.exist = false;
         e = null; // enemy disappears
         p[o] = null; //projectile disappears
-        win = false;
+        playing = false;
       }
     }
   }
