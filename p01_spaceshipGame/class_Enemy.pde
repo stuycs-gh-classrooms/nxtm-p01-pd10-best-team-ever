@@ -7,11 +7,13 @@ class class_Enemy {
   int bsize;
   color c;
   boolean exist;
+  int numLives;
   
   //CONSTRUCTOR
-  class_Enemy(PVector p, int s) {
+  class_Enemy(PVector p, int s, int l) {
     bsize = s;
     center = new PVector(p.x, p.y);
+    numLives = l;
   }
 
   //METHODS
@@ -29,13 +31,15 @@ class class_Enemy {
   void move() {
     if (center.x > width - bsize/2 || center.x < bsize/2) {
       xspeed *= -1;
-      yspeed += 15.5;
+      yspeed += bsize/2 + 10;
       center.y += yspeed;
     }
     if (center.y > height - bsize/2 || center.y < bsize/2) {
       center.y -= yspeed;
     }
+    else {
+      center.x += xspeed;
+    }
 
-    center.x += xspeed;
   }
 }

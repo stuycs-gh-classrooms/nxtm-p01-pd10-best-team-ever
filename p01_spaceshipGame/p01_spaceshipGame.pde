@@ -15,14 +15,13 @@ int yspeed = 1;
 boolean playing;
 boolean win;
 int enemyDifficulty = 5;
-int numLives = 3;
 
 void setup() {
   size(500, 500);
   textAlign(CENTER, CENTER);
 
   shipCenter = new PVector (width/2, (9 * height/10)); // creates user-operated spaceship
-  spaceship = new class_Enemy(shipCenter, bsize);
+  spaceship = new class_Enemy(shipCenter, bsize, 3);
   projectiles = new Projectile[1000];
   enemyProjectiles = new Projectile[10000];
   spaceship.exist = true;
@@ -32,8 +31,13 @@ void setup() {
   frameRate(30);
   makeEnemies(enemies);
   makeGrid(enemies);
-  if (win == true) {
-    won();
+  for (int i = 0; i < enemies.length; i++) {
+    for (int j = 0; j < enemies[i].length; j++) {
+      if (enemies[i][j] == null) {
+        makeEnemies(enemies2);
+        makeGrid(enemies2);
+      }
+    }
   }
 }
 
@@ -95,7 +99,7 @@ void makeEnemies(class_Enemy[][] e) {
   for (int i = 0; i < e.length; i++) {
     for (int j = 0; j < e[i].length; j++) {
       center = new PVector(x, y);
-      e[i][j] = new class_Enemy(center, bsize);
+      e[i][j] = new class_Enemy(center, bsize, 1);
       x += bsize + 20;
     }
     x = width/20;
@@ -107,7 +111,7 @@ void makeGrid(class_Enemy[][] e) {
   for (int i = 0; i < e.length; i++) {
     for (int j = 0; j < e[i].length; j++) {
       if (e[i][j] != null) {
-        e[i][j] = new class_Enemy(e[i][j].center, e[i][j].bsize);
+        e[i][j] = new class_Enemy(e[i][j].center, e[i][j].bsize, 1);
       }
     }
   }
@@ -131,19 +135,19 @@ void processCollisions(Projectile[] p, class_Enemy[][] e) { //process collisions
             float d = dist(p[o].center.x, p[o].center.y, e[i][u].center.x, e[i][u].center.y);
             //                  println(d); //return distance between projectile and enemy
             if (d < bsize) { //if distance too small,
-              //              println("COLLIDE"); //objects "collide"
-              e[i][u] = null; // enemy disappears
-              p[o] = null; //projectile disappears
+              //println("COLLIDE"); //objects "collide"
+              e[i][u].numLives--;
+              if (e[i][u].numLives == 0) {
+                e[i][u] = null; // enemy disappears
+                p[o] = null; //projectile disappears
+              }
             }
           }
-        } 
-        if (e[i][u] == null) {
-          win = true;
-        }
         }
       }
     }
   }
+}
 
 void keyPressed() { //control spaceship
   if (key == ENTER) {
@@ -210,20 +214,13 @@ void processShipCollisions(Projectile[] p, Projectile[] s, class_Enemy e) { //pr
           //e = null; // enemy disappears
           p[o] = null; //projectile disappears
           s[o] = null;
-          numLives--;
-          if (numLives == 0) {
-            win = false;
+          e.numLives--;
+          if (e.numLives == 0) {
             playing = false;
+            win = false;
           }
         }
       }
     }
-  }
-}
-
-void won() {
-  if (win == true) {
-    makeEnemies(enemies2);
-    makeGrid(enemies2);
   }
 }
