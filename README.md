@@ -1,6 +1,7 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Mfyqb_T6)
 # NeXtCS Project 01
-### thinker0: FRIST LSAT
-### thinker1: FRIST LSAT
+### thinker0: Sufia Nanenco
+### thinker1: Eloise Dugdale
 ---
 
 ### Overview
@@ -21,50 +22,78 @@ The first phase will be to work on this document.
 
 ## Phase 0: Selection, Analysis & Plan
 
-#### Selected Project: CHOOSE WISELY
+#### Selected Project: Space Invaders
 
 ### Necessary Features
 What are the core features that your program should have? These should be things that __must__ be implemented in order to make the program useable/playable, not extra features that could be added to make the program more interesting/fun.
 
-YOUR ANSWERS HERE
+1. Classes:
+   * Spaceship class (used for player and enemies)
+   * Projectile class
+2. Functions: 
+   * keyPressed() function that will allow players to pause and play the game
+   * A function to check collisions between projectiles and enemies, and projectiles and spaceship
+   * A function that will decrement the health of the player if collision of enemy projectile detected
+   * A function that will end and reset the game if the player's health goes to zero
+   * A function that will decrement the health of the enemies if collision of player projectile detected
+   * A function that will remove the enemy/player if its health is 0
+3. Variables: 
+   * "Life" variable that tracks the health of the player and the enemies
+   * "ShipSpeed" variable to control the speed of the enemies
+   * Variables to control the movement of the enemies
 
 ### Extra Features
 What are some features that are not essential to the program, but you would like to see (provided you have time after completing the necessary features. Theses can be customizations that are not part of the core requirements.
 
-YOUR ANSWERS HERE
+1. A background that matches the spaceship theme
+2. A graphic for when the spaceship explodes (runs out of lives)
+3. Obstacles (not enemy ships) for the spaceship to avoid
 
 ### Array Usage
 How will you be using arrays in this project?
 
 1D Array:
-- YOUR ANSER HERE
+- Number of spaceship lives
 
 2D Array:
-- YOUR ANSWER HERE
+- Spaceship x, y coordinates
 
 
 ### Controls
 How will your program be controlled? List all keyboard commands and mouse interactions.
 
 Keyboard Commands:
-- LIST OF COMMANDS HERE
+- space button shoots projectiles
+- UP/DOWN/LEFT/RIGHT keys control spaceship
+- 'p' key starts/stops the game
 
 Mouse Control:
-- Mouse movement:
-- Mouse pressed:
+- Mouse movement: program tracks mouse movement
+- Mouse pressed: if mouse coordinates are within the coordinates of the start button and mouse pressed, start game 
 
 
 ### Classes
 What classes will you be creating for this project? Include the instance variables and methods that you believe you will need. You will be required to create at least 2 different classes. If you are going to use classes similar to those we've made for previous assignments, you will have to add new features to them.
 
-CLASS NAME0
+CLASS Spaceship
 - Instance variables:
-  - LIST INSTANCE VARS HERE
+  - PVector center
+  - int xspeed
+  - int yspeed
+  - int shipSize
 - METHODS
-  - LIST METHODS HERE
+  - boolean collisionCheck
+  - void display
+  - void move
 
-CLASS NAME1
+CLASS Projectile
 - Instance variables:
-  - LIST INSTANCE VARS HERE
+  - PVector center
+  - int xspeed
+  - int yspeed
+  - int projectSize
+  - int replicate
 - METHODS
-  - LIST METHODS HERE
+  - boolean collisionCheck
+  - void display
+  - void move
